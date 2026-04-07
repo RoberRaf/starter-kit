@@ -17,5 +17,5 @@ A starter kit for multi collaporating developers, AI first developemnt
 │   └── powersync/         # Offline-first sync configuration
 │       ├── sync-rules.yaml
 │       └── powersync.yaml
-└── project-tasks/      # Project tasks
+└── specs/      # Project tasks
 ```

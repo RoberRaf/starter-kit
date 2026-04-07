@@ -1,5 +1,5 @@
 ```
-TASKS_DIR = `../project-tasks`
+TASKS_DIR = `../specs`
 ```
 
 # Project Sources of Truth
@@ -16,25 +16,32 @@ TASKS_DIR = `../project-tasks`
 
 ----
 
-## Task Management
 
-All task file generation/edits (claiming, status updates, frontmatter changes) MUST be delegated to the **task-manager** subagent
+# Cycle & Task Management
 
-**Never edit task files directly.** Always spawn the task-manager agent and pass it:
-- **file**: the task filename (e.g. `task_one.md`)
-- **action**: `creat`, `claim`, `update-status`, or `claim-and-update-status`
-- **github_user**: the current user's GitHub username (optional)
-- **status** (when updating): the new status value (e.g. `in-progress`, `done`, `todo`, `blocked`)
+All cycle and task file operations (generation, claiming, status updates, content updates) MUST be delegated to the **task-manager** subagent at `.claude/agents/task-manager.md`.
 
-## Task Claiming Protocol
+The task-manager agent is responsible ONLY for managing files — it does **NOT** implement any task or cycle work.
 
-Before starting any task in `$TASKS_DIR/`, you MUST use the task-manager agent to:
-1. Claim the task — the agent will check if `claimed_by` is already set
+**Never edit cycle/task files directly.** Always spawn the task-manager agent and pass it:
+- **file**: the filename (e.g. `1.2-cycle.md` or `task_one.md`)
+- **type**: `cycle` or `task`
+- **action**: `generate`, `claim`, `update-status`, `update-content`, or `claim-and-update-status`
+- **github_user**: the current user's GitHub username
+- **status** (when updating): the new status value (e.g. `in-progress`, `done`, `todo`, `blocked`, `Proposed`)
+- **content** (when generating or updating content): instructions or content for the file
+
+Directory structure:
+- Cycles → `$TASKS_DIR/cycles/`
+- Tasks → `$TASKS_DIR/tasks/`
+
+## Claiming Protocol
+
+Before starting work on any cycle or task, you MUST use the task-manager agent to:
+1. Claim it — the agent will check if `claimed_by` is already set
 2. If claimed by someone else → STOP and report it to the user. Do not proceed.
 3. If unclaimed → the agent will set `claimed_by` and `claimed_at`
 4. If claimed by the current user → proceed normally
-5. When finishing a task, use the task-manager agent with action `update-status` and status `done`.
-
 
 ## Completing a Task
 

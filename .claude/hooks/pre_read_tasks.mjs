@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// PreToolUse hook: before Claude Reads a .md file inside project-tasks/,
+// PreToolUse hook: before Claude Reads a .md file inside specs/,
 // run `git pull` in that repo (debounced to once per 30 seconds).
 
 import { spawnSync } from "node:child_process";
@@ -8,7 +8,7 @@ import { dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Change this when reusing the hook in another project.
-const TASKS_DIR_NAME = "project-tasks";
+const TASKS_DIR_NAME = "specs";
 const DEBOUNCE_MS = 30_000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

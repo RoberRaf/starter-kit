@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// PostToolUse hook: after Claude edits a .md file inside project-tasks/,
+// PostToolUse hook: after Claude edits a .md file inside specs/,
 // stage, commit, and push that file so the remote stays in sync.
 
 import { spawnSync } from "node:child_process";
@@ -8,7 +8,7 @@ import { basename, dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Change this when reusing the hook in another project.
-const TASKS_DIR_NAME = "project-tasks";
+const TASKS_DIR_NAME = "specs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TASKS_REPO = resolve(__dirname, "..", "..", TASKS_DIR_NAME);
